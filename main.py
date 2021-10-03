@@ -112,7 +112,7 @@ class Checker(httpx.Client):
 def main():
     configs = {
         **defaults,
-        **json.loads(getattr(os.environ, 'USER', '{}'))
+        **json.loads(os.environ['USER'] if 'USER' in os.environ else '{}')
     }
     # 检查是否配置正确
     assert 'student_id' in configs and 'password' in configs
