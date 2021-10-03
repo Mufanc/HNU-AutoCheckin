@@ -1,5 +1,5 @@
 import json
-import os
+from os import environ
 from random import randint
 from time import sleep
 
@@ -112,7 +112,7 @@ class Checker(httpx.Client):
 def main():
     configs = {
         **defaults,
-        **json.loads(os.environ['USER'] if 'USER' in os.environ else '{}')
+        **json.loads(environ['USER'] if 'USER' in environ else '{}')
     }
     # 检查是否配置正确
     assert 'student_id' in configs and 'password' in configs
