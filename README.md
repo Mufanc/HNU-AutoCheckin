@@ -1,10 +1,10 @@
 ## HNU-AutoCheckin
 
-> ️**2022-01-25 更新：**
+> ️**2022-02-08 更新：**
 > 
 > ⭐ 假期开启 [**Discussions**](https://github.com/Mufanc/HNU-AutoCheckin/discussions) 板块，有任何问题都欢迎讨论！
 > 
-> ⭐️ Todo：使用 PyTorch 模型代替现有简陋模型完成验证码识别（神经网络已训练好） 
+> ⭐️ 已实现使用 PyTorch 完成验证码识别，无需连接第三方服务！ 
 
 * **警告：使用前详阅**
 

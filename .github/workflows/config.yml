@@ -11,18 +11,21 @@ jobs:
     runs-on: ubuntu-20.04
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
-      - name: checkout
+      - name: Checkout
         uses: 'actions/checkout@master'
 
-      - name: set up python
+      - name: Setup python
         uses: 'actions/setup-python@v2'
         with:
           python-version: '3.8'
 
-      - name: install modules
-        run: 'pip install -r requirements.txt'
+      - name: Install basic modules
+        run: 'pip3 install -r requirements.txt'
 
-      - name: auto checkin
+      - name: Install pytorch
+        run: 'pip3 install torch==1.10.2+cpu torchvision==0.11.3+cpu -f https://download.pytorch.org/whl/cpu/torch_stable.html'
+
+      - name: Auto checkin
         env:
           USER: ${{ secrets.USER }}
         run: python main.py
