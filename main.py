@@ -6,10 +6,9 @@ from time import sleep
 import cv2
 import httpx
 import numpy as np
-import urllib3
 from loguru import logger
 
-from captcha import guess
+from captcha import recognize
 
 # 默认配置
 defaults = {
@@ -29,13 +28,10 @@ headers = {
                   'Chrome/85.0.4183.102 Mobile Safari/537.36',
 }
 
-# 禁用不安全证书的警告
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
 
 class Checker(httpx.Client):
     def __init__(self, configs):
-        super().__init__(verify=False)
+        super().__init__(verify=False, follow_redirects=True)
         self.configs = configs
         self.headers = headers
 
@@ -47,7 +43,7 @@ class Checker(httpx.Client):
                 token = self.get('https://fangkong.hnu.edu.cn/api/v1/account/getimgvcode').json()['data']['Token']
                 image_raw = self.get(f'https://fangkong.hnu.edu.cn/imagevcode?token={token}').content
                 image = cv2.imdecode(np.frombuffer(image_raw, np.uint8), cv2.IMREAD_COLOR)
-                code = guess(image)
+                code = recognize(image)
 
                 login = self.post(
                     'https://fangkong.hnu.edu.cn/api/v1/account/login',
